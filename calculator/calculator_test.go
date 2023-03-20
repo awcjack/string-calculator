@@ -120,3 +120,13 @@ func TestAdd1Add2Add3WithMultipleSingleLengthSeparatorReturn6(t *testing.T) {
 		t.Errorf("Expected 6 but returned %d", result)
 	}
 }
+
+func TestAdd1Add2Add3WithMultipleArbitraryLengthSeparatorReturn6(t *testing.T) {
+	result, err := calculator.StringAdd("//[***][%]\n1***2%3")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if result != 6 {
+		t.Errorf("Expected 6 but returned %d", result)
+	}
+}
