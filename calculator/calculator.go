@@ -7,6 +7,8 @@ import (
 	"strings"
 )
 
+// func
+
 func StringAdd(input string) (int, error) {
 	if len(input) == 0 {
 		return 0, nil
@@ -23,7 +25,18 @@ func StringAdd(input string) (int, error) {
 				count := strings.Count(input, "[")
 				if count > 1 {
 					for i := 0; i < count; i++ {
-						input = strings.ReplaceAll(input, string(input[3+i*3]), ",")
+						arbitrarySeparatorEnd := 0
+						for j := arbitrarySeparatorEnd; j < separatorEnd-3+i*3; j++ {
+							if string(input[3+i*3+j]) == "]" {
+								arbitrarySeparatorEnd = j - arbitrarySeparatorEnd
+								break
+							}
+						}
+						input = strings.ReplaceAll(input, string(input[3+i*3:3+i*3+arbitrarySeparatorEnd]), ",")
+						if arbitrarySeparatorEnd > 1 {
+							// replace removed some character
+							separatorEnd = strings.Index(input, "\n")
+						}
 					}
 				} else {
 					separator = string(input[3 : separatorEnd-1])
